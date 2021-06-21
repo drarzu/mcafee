@@ -1,0 +1,13 @@
+image:
+  repository: 471340249534.dkr.ecr.us-west-2.amazonaws.com/mcafee
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+
+
+

@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mcafee-cronjob
+  labels:
+    app.kubernetes.io/name: "mcafee-cronjob"
+    app.kubernetes.io/component: analysis
+spec:
+  schedule: "0 8 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: prometheus-backup
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command:
+            - /bin/sh
+            - -c
+            - date; echo $PATH ;uvscan /opt
+            env:
+            - name: PATH
+              value: /usr/local/uvscan        
